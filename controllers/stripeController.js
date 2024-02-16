@@ -32,15 +32,17 @@ export const webhook = async (request, response) => {
     case "payment_intent.succeeded":
       const paymentIntent = event.data.object;
       console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
-      // const userEmail = paymentIntent?.charges?.data[0]?.billing_details?.email;
+      const userEmail =
+        paymentIntent?.charges?.data[0]?.billing_details?.email ||
+        "duzioristo@gmail.com";
       try {
-        // const user = await UserModel.findOneAndUpdate(
-        //   { email: userEmail },
-        //   { status: "paid" },
-        //   { new: true }
-        // );
-        console.log("webhook working");
-        // console.log("User status updated:", user);
+        const user = await UserModel.findOneAndUpdate(
+          { email: userEmail },
+          { status: "paid" },
+          { new: true }
+        );
+        // console.log("webhook working");
+        console.log("User status updated:", user);
       } catch (error) {
         console.error("Error updating user status:", error);
         return res.status(500).send("Internal Server Error");
