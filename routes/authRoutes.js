@@ -22,6 +22,6 @@ router.get("/", test);
 router.post("/api/register", registerUsers);
 router.post("/api/login", loginUsers);
 router.put("/api/update", protect, update);
-router.post("/webhook", webhook);
+router.post("/webhook", express.raw({ type: "application/json" }), webhook);
 
 export default router;

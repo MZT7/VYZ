@@ -58,17 +58,19 @@ export const loginUsers = async (req, res) => {
     if (!match) {
       return res?.json("passwords does not match");
     }
-    res
-      .status(201)
-      // .cookie("token", await generateToken(user?._id))
-      .json({
-        token: await generateToken(user?._id),
-        user: {
-          id: user?._id,
-          name: user?.name,
-          email: user?.email,
-        },
-      });
+    return (
+      res
+        .status(201)
+        // .cookie("token", await generateToken(user?._id))
+        .json({
+          token: await generateToken(user?._id),
+          user: {
+            id: user?._id,
+            name: user?.name,
+            email: user?.email,
+          },
+        })
+    );
     // function token() {
     //   return new Promise((resolve, reject) => {
     //     jwt.sign(
